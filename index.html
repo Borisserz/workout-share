@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Opening Workout...</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: -apple-system, sans-serif; text-align: center; padding: 50px; background: #f2f2f7; }
+        .btn { background: #007aff; color: white; padding: 15px 30px; text-decoration: none; border-radius: 12px; font-weight: bold; display: inline-block; margin-top: 20px;}
+    </style>
+</head>
+<body>
+    <h2>Opening WorkoutTracker...</h2>
+    <p>If the app doesn't open automatically, click the button below.</p>
+    <a id="appLink" href="#" class="btn">Open App</a>
+
+    <script>
+        // 1. Получаем данные из ссылки (после ?data=)
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = urlParams.get('data');
+
+        if (data) {
+            // 2. Формируем твою кастомную ссылку
+            // ВАЖНО: Тут должна быть твоя схема workouttracker://
+            const deepLink = "workouttracker://share?data=" + data;
+            
+            // Устанавливаем ссылку на кнопку (на случай если авто-редирект не сработает)
+            document.getElementById("appLink").href = deepLink;
+
+            // 3. Пытаемся открыть приложение автоматически
+            window.location.href = deepLink;
+        } else {
+            document.body.innerHTML = "<h3>Error: No workout data found in link.</h3>";
+        }
+    </script>
+</body>
+</html>
